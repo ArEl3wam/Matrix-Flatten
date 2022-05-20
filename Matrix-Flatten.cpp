@@ -2,17 +2,17 @@
 
 using namespace std;
 
-#define n 2
-#define m 2
-#define p 3
 
 template<typename T>
-vector <T> matrixToVector(T arr[n][m][p]){
+vector <T> matrixToVector(vector<vector<vector<T>>> matrix){
     vector<T> output;
+    int n=matrix.size();
+    int m=matrix[0].size();
+    int p=matrix[0][0].size();
     for(int i=0; i<n; i++){
         for(int j=0; j<m; j++){
             for(int k=0; k<p; k++){
-                output.push_back(arr[i][j][k]);
+                output.push_back(matrix[i][j][k]);
             }
         }
     }
@@ -20,8 +20,10 @@ vector <T> matrixToVector(T arr[n][m][p]){
 }
 
 template<typename T>
-int MatrixIndexTo1DIndex(T arr[n][m][p], int i , int j , int k){
-
+int MatrixIndexTo1DIndex(vector<vector<vector<T>>> matrix, int i , int j , int k){
+    int n=matrix.size();
+    int m=matrix[0].size();
+    int p=matrix[0][0].size();
     if(k>=p || j>=m || i>=n){
         return -1;
     }
@@ -31,18 +33,17 @@ int MatrixIndexTo1DIndex(T arr[n][m][p], int i , int j , int k){
 
 int main(){
 
-int arr1[n][m][p]={0};
-
-cout << MatrixIndexTo1DIndex(arr1 , 1 , 1,1)<< endl;
-
-int arr2[2][2][3]={
+vector<vector<vector<int>>> matrix={
     {{1,2,3},{7,8,9}},
     {{10,11,12},{20,21,22}}
 
-
 };
 
-vector<int>temp = matrixToVector<int>(arr2);
+cout << MatrixIndexTo1DIndex(matrix , 1 , 1,1)<< endl;
+
+
+
+vector<int>temp = matrixToVector<int>(matrix);
 for(int i=0; i<temp.size(); i++){
     cout << temp[i]<< " ";
 }
